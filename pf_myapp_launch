@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Kill Docker Containers') {
+            steps {
+                script {
+                    // Run the Docker command to stop and remove all containers
+                    sh 'docker stop $(docker ps -q) || true'
+                    sh 'docker rm $(docker ps -aq) || true'
+                }
+            }
+        }
+
+    stages {
+        stage('Remove Docker Images') {
+            steps {
+                script {
+                    // Run the Docker command to remove all images
+                    sh 'docker rmi $(docker images -q) || true'
+                }
+            }
+        }
+    
+        // Add more stages as needed
+    }
+}
+In this example, the docker stop command is used to stop all running containers, and the docker rm command removes all containers, including the stopped ones. The || true part prevents the pipeline from failing if there are no containers to stop or remove.
+
+Save and Run the Pipeline:
+Save the pipeline job configuration, and Jenkins will execute the pipeline steps, including killing all Docker containers.
+
+Please be cautious when using commands that stop and remove Docker containers, as this action is irreversible. Ensure that your pipeline is designed to handle this operation safely within your testing or deployment workflow.
+
+
+
+
+
