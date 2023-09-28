@@ -2,14 +2,13 @@
 
 pipeline {
     agent any
-environment {
-        SSH_KEY = credentials('-----BEGIN RSA PRIVATE KEY-----')
-    }
+
     stages {
         stage('Build') {
             steps {
+                Secret_key=SSH_KEY
                 sh 'echo Building...'
-                sh 'echo "Using API key: $SSH_KEY"'
+                sh 'echo "Using API key: $Secret_key"'
             }
         }
         stage('Test') {
