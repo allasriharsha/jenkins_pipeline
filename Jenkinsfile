@@ -6,9 +6,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                SECRET_KEY=credentials("yey")
+            
                 sh 'echo Building...'
-                sh 'echo "Using API key: $SECRET_KEY"'
+                sh 'echo "Using API key: $SSH_KEY"'
             }
         }
         stage('Test') {
