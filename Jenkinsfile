@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                Secret_key=SSH_KEY
+                Secret_key=$SSH_KEY
                 sh 'echo Building...'
                 sh 'echo "Using API key: $Secret_key"'
             }
