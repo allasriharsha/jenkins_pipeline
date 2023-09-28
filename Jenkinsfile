@@ -10,7 +10,11 @@ pipeline {
                 SSH_HOST="ec2-3-96-163-214.ca-central-1.compute.amazonaws.com"
                 sh 'echo Building...'
                 sh 'echo "Using API key: $SSH_KEY"'
-                ssh -i "$SECRET_KEY_FILE" ubuntu@$SSH_HOST
+                def sshCommand = """
+                        ssh -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
+                    """
+                // Execute the SSH command
+                    sh(sshCommand)
             }
         }
         stage('Test') {
