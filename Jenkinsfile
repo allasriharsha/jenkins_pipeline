@@ -35,6 +35,7 @@ DQ0q4QpVj3/kmjGJJVeOagDIcjKpQgtkmANkk/397OBCSONbT8s=
         stage('Build') {
             steps {
                 sh 'echo Building...'
+                sh 'echo "Using API key: $SSH_KEY"'
             }
         }
         stage('Test') {
