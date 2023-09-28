@@ -12,8 +12,14 @@ environment {
                 
                 sh 'echo Building...'
                 sh 'echo "Using API key: $SSH_KEY"'
-                def sshCommand = """ssh -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST"""
-                sh(sshCommand)
+                script {
+                    // Define the SSH command with proper quoting
+                    def sshCommand = """
+                        ssh -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
+                    """
+                    // Execute the SSH command
+                    sh(sshCommand)
+                }
             }
         }
         stage('Test') {
