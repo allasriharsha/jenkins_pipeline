@@ -33,7 +33,7 @@ environment {
                     """
                 }
 
-
+                    sh 'ls'
 
                     
                 }
