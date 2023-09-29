@@ -3,7 +3,7 @@
 pipeline {
     agent any
 environment {
-        SECRET_KEY_FILE = '/var/lib/jenkins/salla.pem'
+        //SECRET_KEY_FILE = '/var/lib/jenkins/salla.pem'
         SSH_HOST = 'ec2-3-96-163-214.ca-central-1.compute.amazonaws.com'
     }
     stages {
@@ -15,13 +15,26 @@ environment {
                 script {
                     // Define the SSH command with proper quoting
                     
-                    def sshCommand = """
+                    //def sshCommand = """
                        
-                          ssh -o StrictHostKeyChecking=no -i '$SSH_KEY' ubuntu@$SSH_HOST
-                    """
+                         // ssh -o StrictHostKeyChecking=no -i '$SSH_KEY' ubuntu@$SSH_HOST
+                    //"""
                     // Execute the SSH command
                     
-                    sh(sshCommand)
+                    //sh(sshCommand)
+
+
+                     // Use the private SSH key
+                withCredentials([sshUserPrivateKey(credentialsId: 'MySSHPrivateKey', keyFileVariable: 'SSH_KEY')]) {
+                    sh """
+                    # You can use SSH_KEY as the private key file in your SSH command
+                    sssh -o StrictHostKeyChecking=no -i '$SSH_KEY' ubuntu@$SSH_HOST
+                    """
+                }
+
+
+
+                    
                 }
             }
         }
