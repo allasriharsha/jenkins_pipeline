@@ -25,15 +25,21 @@ environment {
 
 
                      // Use the private SSH key
+                    // Define the SSH command(s) you want to run
+                    def commands = [
+                        'echo "Hello, world!"',
+                        'ls -l /path/to/some/directory'
+                    ]
                 withCredentials([sshUserPrivateKey(credentialsId: 'MySSHPrivateKey', keyFileVariable: 'SSH_KEY')]) {
                     sh """
                     # You can use SSH_KEY as the private key file in your SSH command
                    
                     ssh -o StrictHostKeyChecking=no -i \$SSH_KEY ubuntu@$SSH_HOST
                     """
+                    command : "ls"
                 }
 
-                    sh 'ls'
+                    
 
                     
                 }
