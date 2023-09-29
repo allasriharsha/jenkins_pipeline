@@ -3,7 +3,7 @@
 pipeline {
     agent any
 environment {
-        SECRET_KEY_FILE = '/var/lib/jenkins/salla.pem'
+        SECRET_KEY_FILE = '/home/ubuntu/salla.pem'
         SSH_HOST = 'ec2-3-96-163-214.ca-central-1.compute.amazonaws.com'
     }
     stages {
