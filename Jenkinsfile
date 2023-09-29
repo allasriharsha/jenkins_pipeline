@@ -14,12 +14,12 @@ environment {
                 sh 'echo "Using API key: $SSH_KEY"'
                 script {
                     // Define the SSH command with proper quoting
-                    def sudo="""sudo-s"""
+                    
                     def sshCommand = """
                          ssh -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
                     """
                     // Execute the SSH command
-                    sh(sudo)
+                    
                     sh(sshCommand)
                 }
             }
