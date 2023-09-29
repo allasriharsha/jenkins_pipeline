@@ -30,15 +30,13 @@ environment {
                         'echo "Hello, world!"',
                         'ls -l /path/to/some/directory'
                     ]
-                withCredentials([sshUserPrivateKey(credentialsId: 'MySSHPrivateKey', keyFileVariable: 'SSH_KEY')]) {
-                    sh """
-                    # You can use SSH_KEY as the private key file in your SSH command
-                   
-                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY ubuntu@$SSH_HOST
-                    """
-                  sh "ls"
-                }
-
+                
+// Establish an SSH connection and run the commands
+                    sshCommand(
+                        remote: SSH_HOST,
+                        credentials: [sshUserPrivateKey(credentialsId: 'MySSHPrivateKey', keyFileVariable: 'SSH_KEY')],
+                        command: commands.join('\n')
+                    )
                     
 
                     
