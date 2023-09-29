@@ -17,7 +17,7 @@ environment {
                     
                     def sshCommand = """
                        
-                         echo "" | sudo -S ssh -o StrictHostKeyChecking=no -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
+                         echo "" | sudo -s ssh -o StrictHostKeyChecking=no -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
                     """
                     // Execute the SSH command
                     
