@@ -15,7 +15,7 @@ environment {
                 script {
                     // Define the SSH command with proper quoting
                     def sshCommand = """
-                        sudo ssh -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
+                        sudo -s ssh -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
                     """
                     // Execute the SSH command
                     sh(sshCommand)
