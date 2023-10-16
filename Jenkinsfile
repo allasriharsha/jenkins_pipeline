@@ -23,7 +23,7 @@ environment {
                     ssh -o StrictHostKeyChecking=no -i \$SSH_KEY ubuntu@$SSH_HOST
                     """
                     command : "whoami"
-                  sh "ls"
+                 
                 }
 
 
