@@ -1,21 +1,40 @@
 pipeline {
     agent any
-
+environment {
+        SECRET_KEY_FILE = '/var/lib/jenkins/salla.pem'
+        SSH_HOST = 'ec2-3-96-163-214.ca-central-1.compute.amazonaws.com'
+    }
     stages {
-        stage('SSH into Server') {
+        stage('Build') {
             steps {
+                
+                sh 'echo Building...'
+                sh 'echo "Using API key: $SSH_KEY"'
                 script {
-                    def remote = [:]
-                    remote.name = 'my-remote-server'
-                    remote.host = 'ec2-3-96-163-214.ca-central-1.compute.amazonaws.com'
-                    remote.user = 'ubuntu'
-                    remote.privateKeyFile = credentials('MySSHPrivateKey')
+                    Define the SSH command with proper quoting
+                    
+                    def sshCommand = """
+                       
+                          ssh -o StrictHostKeyChecking=no -i '$SSH_KEY' ubuntu@$SSH_HOST
+                    """
+                     Execute the SSH command
+                    
+                    sh(sshCommand)
+                    
 
-                    sshCommand remote: remote, command: '''
-                        echo "Hello from the remote server"
-                        # Add more commands here
-                    '''
+
+                    
                 }
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'echo Testing...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'echo Deploying...'
             }
         }
     }
