@@ -20,7 +20,9 @@ environment {
                     sh """
                     # You can use SSH_KEY as the private key file in your SSH command
                    
-                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY ubuntu@$SSH_HOST 'whoami' ' ls -a'
+                    ssh -o StrictHostKeyChecking=no -i \$SSH_KEY ubuntu@$SSH_HOST <<EOF
+                    'whoami' 
+                    'ls -a'
                     """
                    
                  
