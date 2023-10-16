@@ -1,56 +1,24 @@
-
-
 pipeline {
     agent any
-environment {
-        //SECRET_KEY_FILE = '/var/lib/jenkins/salla.pem'
-        SSH_HOST = 'ec2-3-96-163-214.ca-central-1.compute.amazonaws.com'
-    }
+
     stages {
-        stage('Build') {
+        stage('SSH into EC2 and Run Commands') {
             steps {
-                
-                sh 'echo Building...'
-                sh 'echo "Using API key: $SSH_KEY"'
                 script {
-                    // Define the SSH command with proper quoting
-                    
-                    //def sshCommand = """
-                       
-                         // ssh -o StrictHostKeyChecking=no -i '$SSH_KEY' ubuntu@$SSH_HOST
-                    //"""
-                    // Execute the SSH command
-                    
-                    //sh(sshCommand)
+                    def remote = [:]
+                    remote.name = 'my-ec2-instance'
+                    remote.host = 'ec2-3-96-163-214.ca-central-1.compute.amazonaws.com'
+                    remote.user = 'ubuntu'  // Use the appropriate SSH username
+                    remote.identityFile = credentials('MySSHPrivateKey')
 
-
-                     // Use the private SSH key
-                    // Define the SSH command(s) you want to run
-                    def commands = [
-                        'echo "Hello, world!"',
-                        'ls -l /path/to/some/directory'
-                    ]
-                
-// Establish an SSH connection and run the commands
-                    sshCommand(
-                        remote: SSH_HOST,
-                        credentials: [sshUserPrivateKey(credentialsId: 'MySSHPrivateKey', keyFileVariable: 'SSH_KEY')],
-                        command: commands.join('\n')
-                    )
-                    
-
-                    
+                    // SSH into the EC2 instance and execute commands
+                    remote.command = """
+                        ls -l
+                        whoami
+                        # Add more commands here
+                    """
+                    sshPut remote: remote
                 }
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'echo Testing...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'echo Deploying...'
             }
         }
     }
