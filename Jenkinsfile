@@ -11,19 +11,15 @@ environment {
                 sh 'echo Building...'
                 sh 'echo "Using API key: $SSH_KEY"'
                 script {
-                    Define the SSH command with proper quoting
-                    
+                    // Define the SSH command with proper quoting
+
                     def sshCommand = """
-                       
-                          ssh -o StrictHostKeyChecking=no -i '$SSH_KEY' ubuntu@$SSH_HOST
+                         ssh -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
+                         ssh -o StrictHostKeyChecking=no -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
                     """
-                     Execute the SSH command
-                    
+                    // Execute the SSH command
+
                     sh(sshCommand)
-                    
-
-
-                    
                 }
             }
         }
@@ -39,5 +35,4 @@ environment {
         }
     }
 }
-
 
