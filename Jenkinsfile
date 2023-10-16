@@ -17,6 +17,7 @@ pipeline {
                         whoami
                         # Add more commands here
                     """
+                    
                     sshPut remote: remote
                 }
             }
