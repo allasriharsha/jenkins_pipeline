@@ -2,10 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('SSH into EC2 and Run Commands') {
-           
-               
+        stage('Hello, World') {
+            steps {
+                sh 'echo "Hello, World!"'
             }
         }
     }
+}
+
 
