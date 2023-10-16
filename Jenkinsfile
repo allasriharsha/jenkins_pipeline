@@ -14,7 +14,7 @@ environment {
                     // Define the SSH command with proper quoting
 
                     def sshCommand = """
-                         ssh -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
+              
                          ssh -o StrictHostKeyChecking=no -i '$SECRET_KEY_FILE' ubuntu@$SSH_HOST
                     """
                     // Execute the SSH command
