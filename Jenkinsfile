@@ -11,17 +11,7 @@ environment {
                 sh 'echo Building...'
                 sh 'echo "Using API key: $SSH_KEY"'
                 script {
-                    // Define the SSH command with proper quoting
                     
-                    //def sshCommand = """
-                       
-                         // ssh -o StrictHostKeyChecking=no -i '$SSH_KEY' ubuntu@$SSH_HOST
-                    //"""
-                    // Execute the SSH command
-                    
-                    //sh(sshCommand)
-                     // Use the private SSH key
-                    // Define the SSH command(s) you want to run
                     def commands = [
                         'echo "Hello, world!"',
                         'ls -l /path/to/some/directory'
